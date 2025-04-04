@@ -30,12 +30,12 @@ export default function Home() {
         window.kakao.maps.load(() => {
           console.log("Kakao Maps Loaded");
 
-          let coords = new window.kakao.maps.LatLng(33.5563, 126.79581);
-          let container = document.getElementById("map");
+          const coords = new window.kakao.maps.LatLng(33.5563, 126.79581);
+          const container = document.getElementById("map");
 
           if (container) {
-            let options = { center: coords, level: 3 };
-            let map = new window.kakao.maps.Map(container, options);
+            const options = { center: coords, level: 3 };
+            const map = new window.kakao.maps.Map(container, options);
             map.setCenter(coords);
           } else {
             console.error("Map container not found");
