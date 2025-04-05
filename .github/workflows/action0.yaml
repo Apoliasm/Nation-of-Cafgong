@@ -16,7 +16,7 @@ jobs:
           node-version: 18
       - name: "install dependencies"
         working-directory: "./noc-front"
-        run: npm ci
+        run: yarn install --immutable
       - name: "build"
         working-directory: "./noc-front"
-        run: npm run build
+        run: yarn run build
