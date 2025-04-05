@@ -1,11 +1,7 @@
 "use client";
 
-import { Main } from "next/document";
-import Image from "next/image";
 import { useEffect, useRef } from "react";
-
-export const apiSrc = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_API}&autoload=false`;
-
+import { apiSrc } from "@/api";
 declare global {
   interface Window {
     kakao: any;
