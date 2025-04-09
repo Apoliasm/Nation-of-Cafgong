@@ -12,3 +12,12 @@ COPY ./src ./src
 COPY ./public ./public
 
 RUN yarn next build
+
+FROM nginx:1.23.2-alpine as start
+
+COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
+COPY --from=build /docker-front/build /usr/share/nginx/html
+
+EXPOSE 3000
+
+ENTRYPOINT [ "nginx" , "-g", "daemon off;"]
