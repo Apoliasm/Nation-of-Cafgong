@@ -2,7 +2,7 @@ FROM node:18.20.7-alpine3.21 as build
 
 WORKDIR /docker-front
 
-COPY ./package*.json /.yarnrc ./.yarnrc.yml ./.pnp.cjs ./.pnp.loader.mjs ./yarn.lock ./
+COPY ./package*.json ./.yarnrc.yml ./.pnp.cjs ./.pnp.loader.mjs ./yarn.lock ./
 COPY ./.yarn ./.yarn
 
 RUN yarn install
