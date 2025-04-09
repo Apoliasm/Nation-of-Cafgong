@@ -2,10 +2,10 @@ FROM node:18.20.7-alpine3.21 as build
 
 WORKDIR /docker-front
 
-COPY ./package*.json ./.yarnrc.yml ./yarn.lock ./
+COPY ./package*.json /.yarnrc ./.yarnrc.yml ./.pnp.cjs ./.pnp.loader.mjs ./yarn.lock ./
 COPY ./.yarn ./.yarn
 
-RUN yarn install --immutable
+RUN yarn install
 
 COPY ./eslint.config.mjs ./next-env.d.ts ./next.config.ts ./postcss.config.mjs ./tsconfig.json .env ./
 COPY ./src ./src
