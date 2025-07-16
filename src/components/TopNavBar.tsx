@@ -1,13 +1,14 @@
+import AdjustBar from "./AdjustBar";
 import ClientDate from "./ClientDate";
 
 function TopNavBar() {
   return (
     <div
       className="flex flex-col
-     justify-center items-center w-full h-15 bg-green-700 text-white font-bold"
+     justify-center items-center w-full h-full py-2.5 bg-green-700 text-white font-bold"
     >
       <ClientDate></ClientDate>
-      <div>방문 날짜 및 시간 조절</div>
+      <AdjustBar></AdjustBar>
     </div>
   );
 }
