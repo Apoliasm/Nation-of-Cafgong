@@ -1,22 +1,25 @@
-name: NOC Build
-run-name: ${{github. actor}} has been added new commit!
+name: NOC CI
+run-name: ${{ github.actor }} pushed to ${{ github.ref_name }}
 
 on:
+  pull_request:
+    branches: [develop, main]
   push:
     branches-ignore:
-      - "main"
+      - main
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-      - name: "install dependencies"
-        working-directory: "./"
+
+      - name: Install dependencies
         run: yarn install --immutable
-      - name: "build"
-        working-directory: "./"
-        run: yarn run build
+
+      - name: Build
+        run: yarn build
