@@ -7,7 +7,7 @@ function AdjustBar() {
   const [isAdjustTime, setisAdjustTime] = useState(true);
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex flex-row px-10 w-full">
       {isAdjustTime ? (
         <AdjustTime />
       ) : (

@@ -1,18 +1,18 @@
 "use client";
-
-import { useState } from "react";
 import DateTimeSelector from "./DateTimeSelector";
-
+import { RootState } from "@/lib/store";
+import { useSelector } from "react-redux";
+import { createSelector } from "@reduxjs/toolkit";
+import { VisitTimeSelector } from "@/lib/selector";
 function AdjustTime() {
-  const [startTime, setStartTime] = useState<Date>(new Date(Date.now()));
-  const [endTime, setEndTime] = useState<Date>(new Date(Date.now()));
+  const { visitTime, outTime } = useSelector(VisitTimeSelector);
 
   return (
-    <div className="flex-row">
+    <div className="flex flex-col px-5 w-full">
       <div>언제부터</div>
-      <DateTimeSelector date={startTime}></DateTimeSelector>
+      <DateTimeSelector date={visitTime} selectType="VISIT"></DateTimeSelector>
       <div>언제까지</div>
-      <div>{endTime.toDateString()}</div>
+      <DateTimeSelector date={outTime} selectType="OUT"></DateTimeSelector>
     </div>
   );
 }
