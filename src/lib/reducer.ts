@@ -3,7 +3,7 @@ export type visitTimeType = {
   outTime: string;
 };
 
-export type visitActionType = "VISIT" | "OUT" | "";
+export type visitActionType = "visitTime" | "outTime";
 export type visitAction = {
   type: visitActionType;
   payload: string;
@@ -23,30 +23,30 @@ export default function visitTimeReducer(
   const inputTime = new Date(action.payload);
   const currentVisitTime = new Date(state.visitTime);
   const currentOutTime = new Date(state.outTime);
-
-  if (action.type === "VISIT") {
-    if (inputTime > currentOutTime) {
-      const outTimeToReturn = new Date(action.payload);
-      outTimeToReturn.setHours(outTimeToReturn.getHours() + 1);
+  switch (action.type) {
+    case "visitTime":
+      if (inputTime > currentOutTime) {
+        const outTimeToReturn = new Date(action.payload);
+        outTimeToReturn.setHours(outTimeToReturn.getHours() + 1);
+        return {
+          visitTime: inputTime.toISOString(),
+          outTime: outTimeToReturn.toISOString(),
+        };
+      }
       return {
+        ...state,
         visitTime: inputTime.toISOString(),
-        outTime: outTimeToReturn.toISOString(),
       };
-    }
-    return {
-      ...state,
-      visitTime: inputTime.toISOString(),
-    };
-  } else if (action.type === "OUT") {
-    if (currentVisitTime > inputTime) {
-      alert("퇴실 시간이 입실 시간보다 빠를 수 없습니다.");
+    case "outTime":
+      if (currentVisitTime > inputTime) {
+        alert("퇴실 시간이 입실 시간보다 빠를 수 없습니다.");
+        return { ...state };
+      }
+      return {
+        ...state,
+        outTime: inputTime.toISOString(),
+      };
+    default:
       return { ...state };
-    }
-    return {
-      ...state,
-      outTime: inputTime.toISOString(),
-    };
-  } else {
-    return { ...state };
   }
 }
