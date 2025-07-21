@@ -8,11 +8,21 @@ function AdjustTime() {
   const { visitTime, outTime } = useSelector(VisitTimeSelector);
 
   return (
-    <div className="flex flex-col px-5 w-full">
-      <div>언제부터</div>
-      <DateTimeSelector date={visitTime} selectType="VISIT"></DateTimeSelector>
-      <div>언제까지</div>
-      <DateTimeSelector date={outTime} selectType="OUT"></DateTimeSelector>
+    <div className="flex flex-row px-5 w-full">
+      <div className="w-1/2 px-1">
+        <div>언제부터</div>
+        <DateTimeSelector
+          date={visitTime}
+          selectType="visitTime"
+        ></DateTimeSelector>
+      </div>
+      <div className="w-1/2 px-1">
+        <div>언제까지</div>
+        <DateTimeSelector
+          date={outTime}
+          selectType="outTime"
+        ></DateTimeSelector>
+      </div>
     </div>
   );
 }
