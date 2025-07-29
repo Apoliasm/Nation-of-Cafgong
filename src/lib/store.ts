@@ -1,9 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import visitTimeReducer from "./reducer";
-
+import visitTimeReduer from "./slices/visitTimeSlice";
 export const makeStore = () => {
   return configureStore({
-    reducer: visitTimeReducer,
+    reducer: {
+      visitTime: visitTimeReduer,
+    },
   });
 };
 
