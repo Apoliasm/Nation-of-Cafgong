@@ -1,30 +1,28 @@
-import { visitActionType } from "@/lib/reducer";
-import React from "react";
+import React, { RefObject } from "react";
 import Calendar from "react-calendar";
 import { useDispatch } from "react-redux";
 
 type CalendarType = {
   date: Date;
-  selectDateAction: (date: Date) => void;
+  ref: RefObject<React.ReactNode>;
+  selectDateAction: (date: Date, ref: RefObject<React.ReactNode>) => void;
 };
 export default function AdjustCalendar({
   date,
+  ref,
   selectDateAction,
-}: {
-  date: Date;
-  selectDateAction: (date: Date) => void;
-}) {
-  const dispatch = useDispatch();
+}: CalendarType) {
   return (
     <Calendar
-      className=""
+      className="w-1/2 px-3"
+      ref={ref}
       defaultValue={date}
       minDate={new Date(Date.now())}
       view="month"
       value={date}
       formatDay={(locale, date) => `${date.getDate()}`}
       onClickDay={(selected: Date) => {
-        selectDateAction(selected);
+        selectDateAction(selected, ref);
       }}
       maxDetail="month"
       minDetail="month"

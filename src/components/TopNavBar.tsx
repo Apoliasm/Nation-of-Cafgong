@@ -1,4 +1,4 @@
-import AdjustBar from "./AdjustBar";
+import TimeBar from "./TimeBar";
 import ClientDate from "./ClientDate";
 
 function TopNavBar() {
@@ -8,7 +8,7 @@ function TopNavBar() {
      justify-center items-center w-full h-full py-2.5 text-white font-bold"
     >
       <ClientDate></ClientDate>
-      <AdjustBar></AdjustBar>
+      <TimeBar></TimeBar>
     </div>
   );
 }
