@@ -2,16 +2,18 @@
 
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import {
   isAdjustTimeActiveSelctor,
-  VisitTimeSelector,
-} from "@/lib/slices/visitTimeSelector";
-import { toggleAdjustTime } from "@/lib/slices/visitTimeSlice";
+  toggleAdjustTime,
+  visitTimeSelector,
+} from "@/lib/slices/visitTimeSlice";
 import { getWeekday } from "@/utils/getWeekday";
 import { AdjustTimeBar } from "./AdjustTimeBar";
 
 export default function TimeBar() {
-  const { visitTime, outTime } = useSelector(VisitTimeSelector);
+  const { visitDate, outDate, visitHour, outHour } =
+    useSelector(visitTimeSelector);
   const dispatch = useDispatch();
   const isAdjustTimeActive = useSelector(isAdjustTimeActiveSelctor);
   return (
@@ -19,20 +21,22 @@ export default function TimeBar() {
       <div className="flex flex-row px-6 w-full">
         <div className="flex flex-col w-1/2 px-8">
           <div>언제부터</div>
-          <div>
+          <div className="flex flex-row justify-between w-full">
             <p>
-              {visitTime.getMonth() + 1}월 {visitTime.getDate()}일{" "}
-              {getWeekday(visitTime)}
+              {visitDate.getMonth() + 1}월 {visitDate.getDate()}일{" "}
+              {getWeekday(visitDate)}
             </p>
+            <p>{visitHour}시</p>
           </div>
         </div>
         <div className="flex flex-col w-1/2 px-8">
           <div>언제까지</div>
-          <div>
+          <div className="flex flex-row justify-between w-full">
             <p>
-              {outTime.getMonth() + 1}월 {outTime.getDate()}일{" "}
-              {getWeekday(outTime)}
+              {outDate.getMonth() + 1}월 {outDate.getDate()}일{" "}
+              {getWeekday(outDate)}
             </p>
+            <p>{outHour}시</p>
           </div>
         </div>
       </div>

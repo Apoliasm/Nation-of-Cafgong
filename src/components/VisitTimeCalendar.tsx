@@ -7,7 +7,7 @@ type CalendarType = {
   ref: RefObject<React.ReactNode>;
   selectDateAction: (date: Date, ref: RefObject<React.ReactNode>) => void;
 };
-export default function AdjustCalendar({
+export default function VisitTimeCalendar({
   date,
   ref,
   selectDateAction,
