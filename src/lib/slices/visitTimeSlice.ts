@@ -1,18 +1,23 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSelector, createSlice, current } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { PayloadAction } from "@reduxjs/toolkit";
+import compareLocaleDateSame from "@/utils/compareLocaleDate";
 
 export type visitTimeState = {
   isAdjustTimeActive: boolean;
-  visitTime: string;
-  outTime: string;
+  visitDateStr: string;
+  outDateStr: string;
+  visitHour: number;
+  outHour: number;
 };
 
 function initVisitTime(): visitTimeState {
   const visitTimeState: visitTimeState = {
     isAdjustTimeActive: false,
-    visitTime: new Date(Date.now()).toISOString(),
-    outTime: new Date(Date.now()).toISOString(),
+    visitDateStr: new Date(Date.now()).toLocaleDateString("ko-KR"),
+    outDateStr: new Date(Date.now()).toLocaleDateString("ko-KR"),
+    visitHour: new Date(Date.now()).getHours(),
+    outHour: new Date(Date.now()).getHours() + 1,
   };
   return visitTimeState;
 }
@@ -24,31 +29,57 @@ const visitTimeSlice = createSlice({
     toggleAdjustTime(state) {
       state.isAdjustTimeActive = !state.isAdjustTimeActive;
     },
-    setVisitTime(state, action: PayloadAction<string>) {
-      const input = new Date(action.payload);
-      const currentOut = new Date(state.outTime);
-      if (input > currentOut) {
-        const newOut = new Date(input);
-        newOut.setHours(newOut.getHours() + 1);
-        state.visitTime = input.toISOString();
-        state.outTime = newOut.toISOString();
-      } else {
-        state.visitTime = input.toISOString();
-      }
+    setVisitDate(state, action: PayloadAction<string>) {
+      state.visitDateStr = action.payload;
+      state.outDateStr = action.payload;
     },
-    setOutTime(state, action: PayloadAction<string>) {
-      const input = new Date(action.payload);
-      const currentVisit = new Date(state.visitTime);
-      if (currentVisit > input) {
-        alert("퇴실 시간이 입실 시간보다 빠를 수 없습니다.");
-        return;
-      }
-      state.outTime = input.toISOString();
+    setOutDate(state, action: PayloadAction<string>) {
+      state.outDateStr = action.payload;
+    },
+    setVisitHour(state, action: PayloadAction<number>) {
+      state.visitHour = action.payload;
+    },
+    setOutHour(state, action: PayloadAction<number>) {
+      state.outHour = action.payload;
     },
   },
 });
 
-export const { toggleAdjustTime, setVisitTime, setOutTime } =
-  visitTimeSlice.actions;
+export const {
+  toggleAdjustTime,
+  setVisitDate,
+  setOutDate,
+  setVisitHour,
+  setOutHour,
+} = visitTimeSlice.actions;
 
 export default visitTimeSlice.reducer;
+//Selectors
+const visitDateSelector: (state: RootState) => string = (state: RootState) =>
+  state.visitTime.visitDateStr;
+
+const outDateSelector: (state: RootState) => string = (state: RootState) =>
+  state.visitTime.outDateStr;
+const visitHourSelector: (state: RootState) => number = (state: RootState) =>
+  state.visitTime.visitHour;
+const outHourSelector: (state: RootState) => number = (state: RootState) =>
+  state.visitTime.outHour;
+export const visitTimeSelector = createSelector(
+  [visitDateSelector, outDateSelector, visitHourSelector, outHourSelector],
+  (
+    visitDateStr: string,
+    outDateStr: string,
+    visitHour: number,
+    outHour: number
+  ) => {
+    return {
+      visitDate: new Date(visitDateStr),
+      outDate: new Date(outDateStr),
+      visitHour: visitHour,
+      outHour: outHour,
+    };
+  }
+);
+export const isAdjustTimeActiveSelctor: (state: RootState) => boolean = (
+  state: RootState
+) => state.visitTime.isAdjustTimeActive;
