@@ -46,7 +46,7 @@ export default function Home() {
   return (
     <div>
       <h1>KAKAOMAp</h1>
-      <div className="w-200 h-100" id="map"></div>
+      <div className="w-full h-100" id="map"></div>
     </div>
   );
 }
