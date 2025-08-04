@@ -35,11 +35,15 @@ jobs:
 
 
           ssh -i ec2_key.pem -o StrictHostKeyChecking=no ${{ secrets.EC2_HOST }} << 'EOF'
-            sudo docker stop noc || true
-            sudo docker rm noc || true
-            sudo docker rmi noc || true
-            sudo docker build -t noc .
-            sudo docker run -d -p 3000:3000 --name noc noc
+            sudo docker stop noc-release || true
+            sudo docker rm noc-release || true
+            sudo docker rmi noc-release || true
+            cd Nation-of-Cafgong/noc-front
+            git fetch origin
+            git checkout release
+            git pull origin release
+            sudo docker build -t noc-release .
+            sudo docker run -d -p 3000:3000 --name noc-release noc-release
           EOF
         env:
           SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
