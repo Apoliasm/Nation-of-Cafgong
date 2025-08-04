@@ -14,19 +14,19 @@ jobs:
       - name: ✅ Checkout code
         uses: actions/checkout@v4
 
-      - name: ⚙️ Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
+      # - name: ⚙️ Setup Node.js
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: 18
 
-      - name: 📦 Install dependencies
-        run: yarn install --immutable
+      # - name: 📦 Install dependencies
+      #   run: yarn install --immutable
 
-      - name: 🛠 Build the app
-        run: yarn build
+      # - name: 🛠 Build the app
+      #   run: yarn build
 
-      - name: 🐳 Build Docker image
-        run: docker build -t noc .
+      # - name: 🐳 Build Docker image
+      #   run: docker build -t noc .
 
       - name: 🚀 Deploy to EC2
         run: |
