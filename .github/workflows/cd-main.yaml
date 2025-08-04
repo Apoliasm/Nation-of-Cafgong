@@ -38,7 +38,7 @@ jobs:
             sudo docker stop noc-main || true
             sudo docker rm noc-main || true
             sudo docker rmi noc-main || true
-            cd Nation-of-Cafgong/noc-front
+            cd Nation-of-Cafgong
             git fetch origin
             git checkout main
             git pull origin main
