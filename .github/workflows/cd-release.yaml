@@ -26,7 +26,7 @@ jobs:
         run: yarn build
 
       - name: 🐳 Build Docker image
-        run: docker build -t noc
+        run: docker build -t noc .
 
       - name: 🚀 Deploy to EC2
         run: |
