@@ -38,11 +38,10 @@ jobs:
             sudo docker stop noc-release || true
             sudo docker rm noc-release || true
             sudo docker rmi noc-release || true
-            cd Nation-of-Cafgong/noc-front
+            cd Nation-of-Cafgong
             git fetch origin
             git checkout release
             git pull origin release
-            ls
             sudo docker build -t noc-release .
             sudo docker run -d -p 3000:3000 --name noc-release noc-release
           EOF
