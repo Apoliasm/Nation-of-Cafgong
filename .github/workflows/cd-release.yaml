@@ -42,6 +42,7 @@ jobs:
             git fetch origin
             git checkout release
             git pull origin release
+            ls
             sudo docker build -t noc-release .
             sudo docker run -d -p 3000:3000 --name noc-release noc-release
           EOF
