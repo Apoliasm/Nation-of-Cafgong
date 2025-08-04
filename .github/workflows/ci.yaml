@@ -5,8 +5,7 @@ on:
   pull_request:
     branches: [develop, main]
   push:
-    branches-ignore:
-      - main
+    branches: [develop, release, main]
 
 jobs:
   build-and-test:

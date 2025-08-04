@@ -1,10 +1,10 @@
 # .github/workflows/cd-release.yml
-name: CD to EC2 on Release
+name: CD to EC2 on Main
 
 on:
   push:
     branches:
-      - release
+      - main
 
 jobs:
   deploy:
@@ -35,15 +35,15 @@ jobs:
 
 
           ssh -i ec2_key.pem -o StrictHostKeyChecking=no ${{ secrets.EC2_HOST }} << 'EOF'
-            sudo docker stop noc-release || true
-            sudo docker rm noc-release || true
-            sudo docker rmi noc-release || true
+            sudo docker stop noc-main || true
+            sudo docker rm noc-main || true
+            sudo docker rmi noc-main || true
             cd Nation-of-Cafgong/noc-front
             git fetch origin
-            git checkout release
-            git pull origin release
-            sudo docker build -t noc-release .
-            sudo docker run -d -p 3000:3000 --name noc-release noc-release
+            git checkout main
+            git pull origin main
+            sudo docker build -t noc-main .
+            sudo docker run -d -p 3000:3000 --name noc-main noc-main
           EOF
         env:
           SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
