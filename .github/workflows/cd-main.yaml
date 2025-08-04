@@ -31,10 +31,15 @@ jobs:
       - name: 🚀 Deploy to EC2
         run: |
           echo "$SSH_KEY" > ec2_key.pem
+          echo "NEXT_PUBLIC_KAKAO_MAP_API=${{ secrets.NEXT_PUBLIC_KAKAO_MAP_API }}"  >> .env
+          echo "NEXT_PUBLIC_KAKAO_REST_API=${{ secrets.NEXT_PUBLIC_KAKAO_REST_API }}" >> .env
           chmod 600 ec2_key.pem
 
 
           ssh -i ec2_key.pem -o StrictHostKeyChecking=no ${{ secrets.EC2_HOST }} << 'EOF'
+            sudo docker stop noc-release || true
+            sudo docker rm noc-release || true
+            sudo docker rmi noc-release || true
             sudo docker stop noc-main || true
             sudo docker rm noc-main || true
             sudo docker rmi noc-main || true
