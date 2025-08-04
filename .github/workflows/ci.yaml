@@ -1,0 +1,24 @@
+name: NOC CI
+run-name: ${{ github.actor }} pushed to ${{ github.ref_name }}
+
+on:
+  pull_request:
+    branches: [develop, main]
+  push:
+    branches: [develop, release, main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Build
+        run: yarn build

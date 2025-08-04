@@ -1,0 +1,54 @@
+# .github/workflows/cd-release.yml
+name: CD to EC2 on Main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ✅ Checkout code
+        uses: actions/checkout@v4
+
+      # - name: ⚙️ Setup Node.js
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: 18
+
+      # - name: 📦 Install dependencies
+      #   run: yarn install --immutable
+
+      # - name: 🛠 Build the app
+      #   run: yarn build
+
+      # - name: 🐳 Build Docker image
+      #   run: docker build -t noc .
+
+      - name: 🚀 Deploy to EC2
+        run: |
+          echo "$SSH_KEY" > ec2_key.pem
+          echo "NEXT_PUBLIC_KAKAO_MAP_API=${{ secrets.NEXT_PUBLIC_KAKAO_MAP_API }}"  >> .env
+          echo "NEXT_PUBLIC_KAKAO_REST_API=${{ secrets.NEXT_PUBLIC_KAKAO_REST_API }}" >> .env
+          chmod 600 ec2_key.pem
+
+
+          ssh -i ec2_key.pem -o StrictHostKeyChecking=no ${{ secrets.EC2_HOST }} << 'EOF'
+            sudo docker stop noc-release || true
+            sudo docker rm noc-release || true
+            sudo docker rmi noc-release || true
+            sudo docker stop noc-main || true
+            sudo docker rm noc-main || true
+            sudo docker rmi noc-main || true
+            cd Nation-of-Cafgong
+            git fetch origin
+            git checkout main
+            git pull origin main
+            sudo docker build -t noc-main .
+            sudo docker run -d -p 3000:3000 --name noc-main noc-main
+          EOF
+        env:
+          SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
