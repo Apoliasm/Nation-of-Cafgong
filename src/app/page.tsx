@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { apiSrc } from "@/api";
 declare global {
   interface Window {
-    kakao: any;
+    kakao: typeof kakao;
   }
 }
 export default function Home() {
@@ -45,8 +45,7 @@ export default function Home() {
 
   return (
     <div>
-      <h1>KAKAOMAp</h1>
-      <div className="w-full h-100" id="map"></div>
+      <div className="w-full h-screen static" id="map"></div>
     </div>
   );
 }
