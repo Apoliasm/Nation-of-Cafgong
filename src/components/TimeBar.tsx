@@ -10,6 +10,7 @@ import {
 } from "@/lib/slices/visitTimeSlice";
 import { getWeekday } from "@/utils/getWeekday";
 import { AdjustTimeBar } from "./AdjustTimeBar";
+import SearchPlace from "./SearchPlace";
 
 export default function TimeBar() {
   const { visitDate, outDate, visitHour, outHour } =
@@ -40,9 +41,11 @@ export default function TimeBar() {
           </div>
         </div>
       </div>
-      <div className="flex px-6 py-2">
+      <div className="flex flex-col px-6 py-2">
         {isAdjustTimeActive ? <AdjustTimeBar></AdjustTimeBar> : ""}
+        {isAdjustTimeActive ? <SearchPlace></SearchPlace> : ""}
       </div>
+
       <div className="flex items-center justify-center py-2">
         {isAdjustTimeActive ? (
           <p
