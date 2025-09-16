@@ -1042,6 +1042,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/kakaomaps@npm:^1.1.7":
+  version: 1.1.7
+  resolution: "@types/kakaomaps@npm:1.1.7"
+  checksum: 10c0/2a9359056ee63b096cc727f6ed7f9ffff879923ac7c8e84a8b4babef32b628fb4938dd4dc8fbaa4c8131d43704915e97775cb7cb0f22f9353e87aa889d3e261d
+  languageName: node
+  linkType: hard
+
 "@types/keyv@npm:^3.1.4":
   version: 3.1.4
   resolution: "@types/keyv@npm:3.1.4"
@@ -3879,6 +3886,7 @@ __metadata:
     "@next/eslint-plugin-next": "npm:^15.2.4"
     "@reduxjs/toolkit": "npm:^2.8.2"
     "@tailwindcss/postcss": "npm:^4"
+    "@types/kakaomaps": "npm:^1.1.7"
     "@types/node": "npm:^20"
     "@types/react": "npm:^19"
     "@types/react-dom": "npm:^19"
